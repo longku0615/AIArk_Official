@@ -64,7 +64,7 @@ Capability areas (without disclosing internals): decentralized storage & deliver
 | Total supply (fixed cap) | **1,000,000,000 AIArk (1B)** |
 | Price | No reference or target price; the market sets it. $0.20 is only the cold-start settlement price used until the liquidity pool is deep enough (**not a price promise**); mainnet launches with no token sale |
 | Allocation (mainnet intent) | **~80% mining reserve** (earned over the curve) / **genesis premint 4%** — protocol-owned liquidity seed 2.5%, staking·airdrop for testnet contributors 1%, necessary fees 0.5%; nothing sold at launch / **remainder ~14–16% (ecosystem·team·treasury·growth) streamed gradually from the curve — vesting·governance·timelock, NOT a genesis bag** |
-| Release | 80% mining reserve released on a **rigid curve that drops 10% every year and never ends**; **non-mining buckets are all vesting ＋ governance control ＋ timelock**, milestone-bound, no early dumping |
+| Release | 80% mining reserve released on a **curve that only declines and never ends: 10% less each year by default; each year the chain suggests the cut from the past year's price (0–20%) and the community confirms it by vote**; **non-mining buckets are all vesting ＋ governance control ＋ timelock**, milestone-bound, no early dumping |
 | Inflation control | **Burn-Mint Equilibrium (BME):** above the durability floor, zero verified demand → zero minting; adaptation can only reduce issuance, never over-issue → net issuance bound never broken |
 | Staking yield (stake bonded to a validator only: own bond or delegation) | **Floating, not a fixed guaranteed rate** (target range set by governance); paid from the existing emission curve, **no out-of-curve issuance → non-inflationary** |
 | Network revenue | Public download fees, prepaid Private storage, decentralized compute and container hosting, `.aiark` domain registration/renewal |
@@ -81,7 +81,7 @@ There is no exchange-listing batch: a later CEX listing is funded from the treas
 
 **In plain language — what "streamed from the curve (vesting)" means, with an example.** *Vesting* = coins unlock a little at a time on a fixed schedule, not all at once. *Streamed from the curve* = the team/treasury/growth share is minted **gradually over years (like a salary drip)**, never pre-printed into a wallet that could be dumped on you.
 
-> **Example.** The team share is 8% (80,000,000). Instead of getting 80M on launch day, it **vests linearly over 347 weekly epochs (about 80 months) from launch, with no cliff** — about **1M per month**. If they leave or the project stalls, the un-released remainder stays locked. So insiders **cannot dump a giant bag at listing** — their payout is tied to building the project for years. The mining reserve works the same way: ~80% is released to miners **slowly, each year 10% less than the year before**, not minted up front.
+> **Example.** The team share is 8% (80,000,000). Instead of getting 80M on launch day, it **vests linearly over 347 weekly epochs (about 80 months) from launch, with no cliff** — about **1M per month**. If they leave or the project stalls, the un-released remainder stays locked. So insiders **cannot dump a giant bag at listing** — their payout is tied to building the project for years. The mining reserve works the same way: ~80% is released to miners **slowly, each year less than the year before (10% less by default)**, not minted up front.
 
 **As emission shrinks — does the ecosystem keep going? Yes.** The declining emission is a **bootstrap subsidy, not the long-term engine.** Miner income stands on two legs: (1) **delivery miners are paid by real usage fees from day one** — every download pays a bandwidth fee, which has nothing to do with emission and lasts as long as people use the network; (2) **storage miners** keeping the durability floor are paid by floor minting within the curve; **whenever that falls short (a price drop, or the shrinking curve), the winter reserve and treasury top it up — funded by fees, treasury yield, orphan-file shares and issuance set aside in good years, not by printing new tokens.** As real demand grows, fee revenue replaces the shrinking emission; as emission shrinks the network runs on **download fees, Private-storage rental, compute usage and `.aiark` domain fees**. **BME** keeps it non-inflationary: above the durability floor, minting needs matching burns, and burned tokens never reopen minting capacity under the fixed 1B cap. This is the same "block-subsidy → transaction-fees" handoff mature networks use. **Honest caveat:** this only holds if real usage actually grows by then — if demand never shows up, fees won't replace the subsidy and miners leave. That adoption risk is the project's core bet (see §7). If both reserve legs run dry, the miner floor becomes a published target rather than a guarantee: the protocol never prints above the curve to pay it, and it protects existing files by pausing new Public admissions and evicting extra cache copies first (§15.1).
 
@@ -238,16 +238,18 @@ There is no social login and no key splitting (MPC). Recovery is only through **
 
 If you farm Chia or run Filecoin, Storj or Sia, you already have what AIArk needs: spare disk, an always-on machine and a stable connection. On AIArk that disk holds real files that people pay to store and download, not placeholder data.
 
+Legend: ✅ strength · ⚠️ trade-off or partial · ❌ weakness · ➖ not offered or not applicable.
+
 | | **AIArk** | Chia | Filecoin | Storj | Sia | Arweave |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
-| What your disk holds | Real user files, as encrypted chunks | Plots (cryptographic filler, no user data) | Client data or committed-capacity sectors | Real user files, as encrypted pieces | Real renter files | Replicas of the permanent weave |
-| Setup before earning | None for normal data: no plotting, no sealing (a light sequential seal only on durability-floor columns, *planned*) | Plotting (CPU/GPU, temp space) | Heavy sealing (GPUs, large RAM, fast NVMe) | Vetting period | Host setup, collateral | Packing the data you mine |
-| Hardware | Any disk + stable connection; no GPU | Disks; plotting rig | Server-class sealing rig | Disk + connection | Disk + connection | Fast disks |
-| How you prove storage | A public random draw picks chunks you hold, proven on chain within a short window (*planned*), plus delivery speed | Proof of Space and Time | PoRep + PoSt | Audits by satellites | Storage proofs per contract | Proofs of random access |
-| How you earn | Storage pay + a fee for every download you deliver (real usage, not only new coins) | Block-win lottery (pools smooth it) | Block rewards + deal fees | Per TB stored + egress | Contract payments | Block rewards |
-| Stake / collateral | A stake, cut only for a provably false storage claim | None | FIL pledge, penalties for faults | None (part of early payouts withheld) | Collateral per contract | None |
-| Also rent out compute? | Yes, on Linux: container hosting (AIArk hosting can also place deployments on Akash) | No | No | No | No | No |
-| Maturity | **Testnet, pre-launch** | Mainnet | Mainnet | Mainnet | Mainnet | Mainnet |
+| What your disk holds | ✅ Real user files, as encrypted chunks | ❌ Plots (cryptographic filler, no user data) | ⚠️ Client data or committed-capacity sectors | ✅ Real user files, as encrypted pieces | ✅ Real renter files | ✅ Replicas of the permanent weave |
+| Setup before earning | ✅ None for normal data: no plotting, no sealing (a light sequential seal only on durability-floor columns, *planned*) | ⚠️ Plotting (CPU/GPU, temp space) | ❌ Heavy sealing (GPUs, large RAM, fast NVMe) | ⚠️ Vetting period | ⚠️ Host setup, collateral | ⚠️ Packing the data you mine |
+| Hardware | ✅ Any disk + stable connection; no GPU | ⚠️ Disks; plotting rig | ❌ Server-class sealing rig | ✅ Disk + connection | ✅ Disk + connection | ⚠️ Fast disks |
+| How you prove storage | ⚠️ A public random draw picks chunks you hold, proven on chain within a short window (*planned*), plus delivery speed | ✅ Proof of Space and Time | ✅ PoRep + PoSt (heavy, formal) | ⚠️ Audits by satellites (operator-run) | ✅ Storage proofs per contract | ✅ Proofs of random access |
+| How you earn | ✅ Storage pay + a fee for every download you deliver (real usage, not only new coins) | ⚠️ Block-win lottery (pools smooth it) | ✅ Block rewards + deal fees | ✅ Per TB stored + egress | ✅ Contract payments | ⚠️ Block rewards |
+| Stake / collateral | ✅ A stake, cut only for a provably false storage claim | ✅ None | ⚠️ FIL pledge, penalties for faults | ⚠️ None (part of early payouts withheld) | ⚠️ Collateral per contract | ✅ None |
+| Also rent out compute? | ✅ Yes, on Linux: container hosting (AIArk hosting can also place deployments on Akash) | ➖ No | ➖ No | ➖ No | ➖ No | ➖ No |
+| Maturity | ❌ **Testnet, pre-launch** | ✅ Mainnet | ✅ Mainnet | ✅ Mainnet | ✅ Mainnet | ✅ Mainnet |
 
 The other columns reflect each network's general design; check their own docs for current details. The full comparison, with AIArk's honest drawbacks, is in §10.
 
@@ -305,11 +307,11 @@ The other columns reflect each network's general design; check their own docs fo
 
 ### 9.4 FDV vs circulating market cap (don't be fooled by FDV)
 - **FDV (fully-diluted valuation) = total supply × market price** (1B × whatever the market pays); AIArk has no reference or target price.
-- **But FDV is not market cap:** 80% is the mining reserve **locked and released at 10% less each year**, and non-mining buckets also vest → **early circulating is only ~10–20%**, so **circulating market cap is far below FDV**.
+- **But FDV is not market cap:** 80% is the mining reserve **locked and released on a declining curve (10% less each year by default)**, and non-mining buckets also vest → **early circulating is only ~10–20%**, so **circulating market cap is far below FDV**.
 - Judge a project by **circulating supply / circulating market cap + unlock schedule**; **high FDV + low float = ongoing future sell pressure** — make sure you understand this.
 
 ### 9.5 Emission simulation curve (illustrative only; subject to governance & BME; not a promise)
-The 800M mining reserve uses a **rigid declining** release: 0.2024% of what remains each week, so each year's release is 10% below the last and it never ends. **Illustrative upper bound** (actual can be lower: above the durability floor, BME mints only against burns):
+The 800M mining reserve uses a **rigid declining** release: each year's release is below the last and it never ends. The default cut is 10% a year; at each year end the chain suggests a cut between 0% and 20% from the past year's price (a falling price means a bigger cut) and the community confirms it by vote, or the previous cut stays. The table assumes the default 10%. **Illustrative upper bound** (actual can be lower: above the durability floor, BME mints only against burns):
 
 | Year | Annual emission (≈) | Cumulative mining (≈) | % of total |
 | :-- | --: | --: | --: |
@@ -335,32 +337,41 @@ AIArk is **not "another Filecoin."** Most decentralized networks do *one* thing 
 
 ### Positioning (2026)
 
+Legend: ✅ strength · ⚠️ trade-off or partial · ❌ weakness · ➖ not offered or not applicable.
+
 | | **AIArk** | Filecoin | Arweave | Storj | IPFS / BitTorrent | Akash / io.net / Render |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
 | Core | Storage ＋ **AI value-search ＋ content market** | Storage marketplace | **Permanent** storage | S3-style object storage | Addressing / transport | GPU compute |
-| Storage proof | **PoFD (delivery-speed) ＋ on-chain proof of random targets** (ADR-224); sealing ＋ PoSt on floor columns only (ADR-172, pending) | **PoRep / PoSt** (heavy, formal) | Endowment ＋ proofs | Erasure ＋ reputation (Satellites) | none native | n/a |
-| Retention | **Demand/value-driven** (cold low-value may be GC'd) | Contract-term | **Pay-once, forever** | Contract | best-effort | n/a |
-| Confidentiality | **Not ZK** (dedup tradeoff; self-encrypt option) | opaque encrypted blobs | public permaweb | client-side encrypted | public | n/a |
-| Search / discovery | **AI value scoring, multilingual** | none (blob CID) | gateway | none | DHT / keyword | n/a |
-| Creator economy / anti-piracy | **Built-in** (royalties, attestation, jury) | no | no | no | no | (Render: creator focus) |
-| Maturity | **Testnet, pre-launch** | Mainnet, ~2.1 EiB stored | Mainnet, years (permaweb) | Mainnet, S3 live | Mature | Live (io.net 300K+ GPUs) |
+| Storage proof | ⚠️ **PoFD (delivery-speed) ＋ on-chain proof of random targets** (ADR-224); sealing ＋ PoSt on floor columns only (ADR-172, pending) | ✅ **PoRep / PoSt** (heavy, formal) | ✅ Endowment ＋ proofs | ⚠️ Erasure ＋ reputation (Satellites) | ❌ none native | ➖ |
+| Retention | ⚠️ **Demand/value-driven** (cold low-value may be GC'd) | ⚠️ Contract-term | ✅ **Pay-once, forever** | ⚠️ Contract | ❌ best-effort | ➖ |
+| Confidentiality | ⚠️ **Not ZK** (dedup tradeoff; self-encrypt option) | ✅ opaque encrypted blobs | ❌ public permaweb | ✅ client-side encrypted | ❌ public | ➖ |
+| Search / discovery | ✅ **AI value scoring, multilingual** | ❌ none (blob CID) | ⚠️ gateway | ❌ none | ⚠️ DHT / keyword | ➖ |
+| Creator economy / anti-piracy | ✅ **Built-in** (royalties, attestation, jury) | ❌ no | ❌ no | ❌ no | ❌ no | ⚠️ Render: creator focus |
+| Compute | ⚠️ Optional container hosting, nascent | ➖ | ➖ | ➖ | ➖ | ✅ Live GPU markets |
+| Maturity | ❌ **Testnet, pre-launch** | ✅ Mainnet, ~2.1 EiB stored | ✅ Mainnet, years (permaweb) | ✅ Mainnet, S3 live | ✅ Mature | ✅ Live (io.net 300K+ GPUs) |
 
 ### Advantages
-- **Value-search ＋ marketplace:** content surfaces by AI-judged value (not ads/SEO), with creator royalties and anti-piracy economics — storage-only networks don't do this.
-- **Lower miner barrier:** PoFD ＋ audit avoids Filecoin-style SDR sealing and zk proofs (only floor columns carry a light sequential seal) → cheaper and faster to join.
-- **Space efficient:** network-wide convergent dedup ＋ erasure coding (~1.4× for large files) instead of N× replication.
-- **Built-in AI value-add:** multilingual subtitles/translation, content classification, safety scanning, deterministic detectors plus human-jury arbitration (AI summaries advise, never decide).
-- **Non-inflationary tokenomics (BME)** ＋ reputation-based Sybil resistance.
+
+| | Advantage | What it means | Compared with |
+| :-- | :-- | :-- | :-- |
+| ✅ | **Value-search ＋ marketplace** | Content surfaces by AI-judged value (not ads/SEO), with creator royalties and anti-piracy economics | Storage-only networks do not do this |
+| ✅ | **Lower miner barrier** | PoFD ＋ audit, no SDR sealing or zk proofs; only floor columns carry a light sequential seal | Cheaper and faster to join than Filecoin |
+| ✅ | **Space efficient** | Network-wide convergent dedup ＋ erasure coding (~1.4× for large files) | Instead of N× replication |
+| ✅ | **Built-in AI value-add** | Multilingual subtitles/translation, content classification, safety scanning, deterministic detectors plus human-jury arbitration (AI summaries advise, never decide) | No incumbent bundles these |
+| ✅ | **Non-inflationary tokenomics (BME)** | Burn-and-mint against real usage, a release that only declines, reputation-based Sybil resistance | Lottery or pure-inflation rewards |
 
 ### Honest disadvantages
-- **No track record — testnet, pre-launch.** Filecoin stores exbibytes, Arweave has years of permaweb, Storj/io.net are live. **AIArk is unproven at scale — the single biggest risk.**
-- **Early centralization:** one team runs most seed nodes and holds the ADR-184 duty seats and a capped team vote that steps down at on-chain conditions; governance itself runs on-chain from genesis.
-- **Not permanent like Arweave:** cold, low-value, zero-download content can be garbage-collected by design — if you want pay-once-forever permanence, Arweave fits better.
-- **Lighter storage proof than Filecoin:** PoFD is delivery-driven; only the durability-floor columns carry sealing and PoSt (ADR-172, pending engineering), with no full SDR PoRep — weaker formal durability assurance than Filecoin.
-- **Content is not zero-knowledge confidential** (price of dedup): self-encrypt for true secrecy.
-- **Broad scope = execution risk:** storage ＋ search ＋ marketplace ＋ compute ＋ naming is far more than a focused competitor (Storj = storage, Render = rendering).
-- **Compute layer is nascent** vs live io.net / Akash / Render.
-- **Bridge and wrapped-asset dependency** (audited bridge standards only, never a self-built bridge) and **regulatory exposure** (media/marketplace adjacency) — mitigated by content-neutrality ＋ BSL ＋ takedown governance, not eliminated.
+
+| | Disadvantage | What it means | Mitigation |
+| :-- | :-- | :-- | :-- |
+| ❌ | **No track record — testnet, pre-launch** | Filecoin stores exbibytes, Arweave has years of permaweb, Storj/io.net are live; **AIArk is unproven at scale — the single biggest risk** | A closed testnet with bug bounties now; only running at scale can remove this |
+| ❌ | **Early centralization** | One team runs most seed nodes and holds the ADR-184 duty seats and a capped team vote | The team cap steps down at on-chain conditions; governance runs on-chain from genesis |
+| ⚠️ | **Not permanent like Arweave** | Cold, low-value, zero-download content can be garbage-collected by design | Prepaid Private storage keeps a file for the period paid, renewable; for pay-once-forever permanence, Arweave fits better |
+| ⚠️ | **Lighter storage proof than Filecoin** | PoFD is delivery-driven; only durability-floor columns carry sealing and PoSt (ADR-172, pending engineering), with no full SDR PoRep — weaker formal durability assurance | Per-miner sealed floor columns, random on-chain audits and erasure-coded repair; seal and audit parameters are calibrated on testnet before mainnet |
+| ⚠️ | **Content is not zero-knowledge confidential** | The price of network-wide dedup | Self-encrypt for true secrecy (such a file stays Private) |
+| ❌ | **Broad scope = execution risk** | Storage ＋ search ＋ marketplace ＋ compute ＋ naming is far more than a focused competitor (Storj = storage, Render = rendering) | None: the combination is the core bet itself |
+| ❌ | **Compute layer is nascent** | Behind live io.net / Akash / Render | Can place deployments on Akash meanwhile |
+| ⚠️ | **Bridge and regulatory exposure** | Wrapped-asset dependency (audited bridge standards only, never a self-built bridge); media/marketplace adjacency | Content-neutrality ＋ BSL ＋ takedown governance; mitigated, not eliminated |
 
 > **Bottom line:** AIArk's bet is "**AI value-search ＋ a creator marketplace on top of decentralized storage**", which no incumbent offers as one unit — but it must still prove it runs at scale, which the incumbents have done and AIArk has not. Judge it as an **early-stage, high-upside, high-risk** project, not a drop-in replacement for a live network.
 
