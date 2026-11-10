@@ -1,6 +1,6 @@
 # AIArk — Token Profile for Exchange Listing Review
 
-This is a one-page summary for exchange and listing reviewers. The binding text is the public whitepaper ([`whitepaper/AIArk_Public_Whitepaper.md`](whitepaper/AIArk_Public_Whitepaper.md)); if the two ever differ, the whitepaper wins.
+This is a one-page summary for exchange and listing reviewers. The binding text is the public whitepaper ([`README.md`](README.md)); if the two ever differ, the whitepaper wins.
 
 **Stage: testnet. Mainnet has not launched, there is no token sale, and testnet tokens have no value.**
 
