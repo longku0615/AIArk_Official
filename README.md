@@ -64,14 +64,14 @@ Capability areas (without disclosing internals): decentralized storage & deliver
 | Total supply (fixed cap) | **1,000,000,000 AIArk (1B)** |
 | Price | No reference or target price; the market sets it. $0.20 is only the cold-start settlement price used until the liquidity pool is deep enough (**not a price promise**); mainnet launches with no token sale |
 | Allocation (mainnet intent) | **~80% mining reserve** (earned over the curve) / **genesis premint 4%** — protocol-owned liquidity seed 2.5%, staking·airdrop for testnet contributors 1%, necessary fees 0.5%; nothing sold at launch / **remainder ~14–16% (ecosystem·team·treasury·growth) streamed gradually from the curve — vesting·governance·timelock, NOT a genesis bag** |
-| Release | 80% mining reserve released over **10 years on a rigid linear-declining curve**; **non-mining buckets are all vesting ＋ governance control ＋ timelock**, milestone-bound, no early dumping |
+| Release | 80% mining reserve released on a **rigid curve that drops 10% every year and never ends**; **non-mining buckets are all vesting ＋ governance control ＋ timelock**, milestone-bound, no early dumping |
 | Inflation control | **Burn-Mint Equilibrium (BME):** above the durability floor, zero verified demand → zero minting; adaptation can only reduce issuance, never over-issue → net issuance bound never broken |
 | Staking yield (stake bonded to a validator only: own bond or delegation) | **Floating, not a fixed guaranteed rate** (target range set by governance); paid from the existing emission curve, **no out-of-curve issuance → non-inflationary** |
 | Network revenue | Public download fees, prepaid Private storage, decentralized compute and container hosting, `.aiark` domain registration/renewal |
 
-**200,000,000 was minted on testnet for testing only.** Mainnet uses a **genesis premint of 4%** earmarked solely for the protocol-owned liquidity seed (2.5%), staking·airdrop for testnet contributors (1%) and necessary fees (0.5%); a later CEX listing is funded by a governance vote from the treasury stream; team/treasury/growth are **streamed from the curve (vesting·governance·timelock), not a genesis bag**; the ~80% mining reserve releases over the curve.
+**Testnet has exactly the same supply as mainnet: a fixed 1,000,000,000, the same curve and the same 4% genesis premint; on testnet the premint only funds the test faucet and the validators' starting stake, and test tokens have no value.** Mainnet uses a **genesis premint of 4%** earmarked solely for the protocol-owned liquidity seed (2.5%), staking·airdrop for testnet contributors (1%) and necessary fees (0.5%); a later CEX listing is funded by a governance vote from the treasury stream; team/treasury/growth are **streamed from the curve (vesting·governance·timelock), not a genesis bag**; the ~80% mining reserve releases over the curve.
 
-**In plain language — what the genesis premint is for.** When the network goes live, almost no coins exist yet — miners earn them slowly over 10 years. But a few things need coins on day one, or the network can't run or be traded, so a **small starting batch (4%)** is pre-made and used **only** for three launch needs:
+**In plain language — what the genesis premint is for.** When the network goes live, almost no coins exist yet — miners earn them slowly, year after year. But a few things need coins on day one, or the network can't run or be traded, so a **small starting batch (4%)** is pre-made and used **only** for three launch needs:
 
 1. **Liquidity (2.5%, the biggest slice).** To trade AIArk there must be a pool holding coins on *both* sides (AIArk + USDC). Without it, one buy spikes the price and you can't sell back. This batch seeds that pool and is **locked in** so it can't be pulled (anti-rug).
 2. **Staking & airdrop for testnet contributors (1%).** Rewards for the people who tested and hardened the network: the validated testnet bug bounties, and a staking reward that **you lock/stake to earn; it is not free money handed out** (no Sybil-farming payoff).
@@ -81,9 +81,9 @@ There is no exchange-listing batch: a later CEX listing is funded from the treas
 
 **In plain language — what "streamed from the curve (vesting)" means, with an example.** *Vesting* = coins unlock a little at a time on a fixed schedule, not all at once. *Streamed from the curve* = the team/treasury/growth share is minted **gradually over years (like a salary drip)**, never pre-printed into a wallet that could be dumped on you.
 
-> **Example.** The team share is 8% (80,000,000). Instead of getting 80M on launch day, it **vests linearly over 347 weekly epochs (about 80 months) from launch, with no cliff** — about **1M per month**. If they leave or the project stalls, the un-released remainder stays locked. So insiders **cannot dump a giant bag at listing** — their payout is tied to building the project for years. The mining reserve works the same way: ~80% is released to miners **slowly over 10 years** (more early, tapering toward zero), not minted up front.
+> **Example.** The team share is 8% (80,000,000). Instead of getting 80M on launch day, it **vests linearly over 347 weekly epochs (about 80 months) from launch, with no cliff** — about **1M per month**. If they leave or the project stalls, the un-released remainder stays locked. So insiders **cannot dump a giant bag at listing** — their payout is tied to building the project for years. The mining reserve works the same way: ~80% is released to miners **slowly, each year 10% less than the year before**, not minted up front.
 
-**After the 10 years — does the ecosystem keep going? Yes.** The declining emission is a **bootstrap subsidy, not the long-term engine.** Miner income stands on two legs: (1) **delivery miners are paid by real usage fees from day one** — every download pays a bandwidth fee, which has nothing to do with emission and lasts as long as people use the network; (2) **storage miners** keeping the durability floor are paid by floor minting within the 10-year curve; **whenever that falls short (a price drop, or the curve running out), the winter reserve and treasury top it up — funded by fees, treasury yield, orphan-file shares and issuance set aside in good years, not by printing new tokens.** As real demand grows, fee revenue replaces the shrinking emission; once emission tapers toward zero the network runs on **download fees, Private-storage rental, compute usage and `.aiark` domain fees**. **BME** keeps it non-inflationary: above the durability floor, minting needs matching burns, and burned tokens never reopen minting capacity under the fixed 1B cap. This is the same "block-subsidy → transaction-fees" handoff mature networks use. **Honest caveat:** this only holds if real usage actually grows by then — if demand never shows up, fees won't replace the subsidy and miners leave. That adoption risk is the project's core bet (see §7). If both reserve legs run dry, the miner floor becomes a published target rather than a guarantee: the protocol never prints above the curve to pay it, and it protects existing files by pausing new Public admissions and evicting extra cache copies first (§15.1).
+**As emission shrinks — does the ecosystem keep going? Yes.** The declining emission is a **bootstrap subsidy, not the long-term engine.** Miner income stands on two legs: (1) **delivery miners are paid by real usage fees from day one** — every download pays a bandwidth fee, which has nothing to do with emission and lasts as long as people use the network; (2) **storage miners** keeping the durability floor are paid by floor minting within the curve; **whenever that falls short (a price drop, or the shrinking curve), the winter reserve and treasury top it up — funded by fees, treasury yield, orphan-file shares and issuance set aside in good years, not by printing new tokens.** As real demand grows, fee revenue replaces the shrinking emission; as emission shrinks the network runs on **download fees, Private-storage rental, compute usage and `.aiark` domain fees**. **BME** keeps it non-inflationary: above the durability floor, minting needs matching burns, and burned tokens never reopen minting capacity under the fixed 1B cap. This is the same "block-subsidy → transaction-fees" handoff mature networks use. **Honest caveat:** this only holds if real usage actually grows by then — if demand never shows up, fees won't replace the subsidy and miners leave. That adoption risk is the project's core bet (see §7). If both reserve legs run dry, the miner floor becomes a published target rather than a guarantee: the protocol never prints above the curve to pay it, and it protects existing files by pausing new Public admissions and evicting extra cache copies first (§15.1).
 
 ### Who actually earns money (in plain words)
 
@@ -305,20 +305,21 @@ The other columns reflect each network's general design; check their own docs fo
 
 ### 9.4 FDV vs circulating market cap (don't be fooled by FDV)
 - **FDV (fully-diluted valuation) = total supply × market price** (1B × whatever the market pays); AIArk has no reference or target price.
-- **But FDV is not market cap:** 80% is the mining reserve **locked and released over 10 years**, and non-mining buckets also vest → **early circulating is only ~10–20%**, so **circulating market cap is far below FDV**.
+- **But FDV is not market cap:** 80% is the mining reserve **locked and released at 10% less each year**, and non-mining buckets also vest → **early circulating is only ~10–20%**, so **circulating market cap is far below FDV**.
 - Judge a project by **circulating supply / circulating market cap + unlock schedule**; **high FDV + low float = ongoing future sell pressure** — make sure you understand this.
 
 ### 9.5 Emission simulation curve (illustrative only; subject to governance & BME; not a promise)
-The 800M mining reserve uses a **rigid linear-declining** release over 10 years (more early, declining to near-zero). **Illustrative upper bound** (actual can be lower: above the durability floor, BME mints only against burns):
+The 800M mining reserve uses a **rigid declining** release: 0.2024% of what remains each week, so each year's release is 10% below the last and it never ends. **Illustrative upper bound** (actual can be lower: above the durability floor, BME mints only against burns):
 
 | Year | Annual emission (≈) | Cumulative mining (≈) | % of total |
 | :-- | --: | --: | --: |
-| 1 | ~152M | ~152M | ~15% |
-| 2 | ~136M | ~288M | ~29% |
-| 3 | ~120M | ~408M | ~41% |
-| 5 | ~88M | ~600M | ~60% |
-| 7 | ~56M | ~728M | ~73% |
-| 10 | ~8M | ~800M | ~80% |
+| 1 | ~80M | ~80M | ~8% |
+| 2 | ~72M | ~152M | ~15% |
+| 3 | ~65M | ~217M | ~22% |
+| 5 | ~52M | ~328M | ~33% |
+| 10 | ~31M | ~521M | ~52% |
+| 20 | ~11M | ~702M | ~70% |
+| 30 | ~4M | ~766M | ~77% |
 
 - Non-mining is **not a genesis bag**: a **4% genesis premint** covers the protocol-owned liquidity seed, staking·airdrop for testnet contributors and fees (each sub-bucket an on-chain group policy + timelock + labeled; unused returns to treasury/burn; POL locked); team/treasury/growth are **streamed gradually from the curve** (vesting + governance control + timelock; the treasury is keyless).
 - **BME:** above the durability floor, no verified demand → no minting; adaptation can only reduce, never over-issue → the table is an **upper bound**, real circulating can be lower.
