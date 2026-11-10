@@ -74,7 +74,7 @@ Capability areas (without disclosing internals): decentralized storage & deliver
 **In plain language — what the genesis premint is for.** When the network goes live, almost no coins exist yet — miners earn them slowly over 10 years. But a few things need coins on day one, or the network can't run or be traded, so a **small starting batch (4%)** is pre-made and used **only** for three launch needs:
 
 1. **Liquidity (2.5%, the biggest slice).** To trade AIArk there must be a pool holding coins on *both* sides (AIArk + USDC). Without it, one buy spikes the price and you can't sell back. This batch seeds that pool and is **locked in** so it can't be pulled (anti-rug).
-2. **Staking & airdrop for testnet contributors (1%).** Rewards for the people who tested and hardened the network — **you lock/stake to earn; it is not free money handed out** (no Sybil-farming payoff).
+2. **Staking & airdrop for testnet contributors (1%).** Rewards for the people who tested and hardened the network: the validated testnet bug bounties, and a staking reward that **you lock/stake to earn; it is not free money handed out** (no Sybil-farming payoff).
 3. **Necessary fees (0.5%).** Security audits (CertiK/Hacken), the legal opinion, the legal entities, and on-chain deployment gas.
 
 There is no exchange-listing batch: a later CEX listing is funded from the treasury stream by a governance vote. The team, treasury and growth budgets get **no big bag at launch** — see next.
@@ -260,8 +260,10 @@ The other columns reflect each network's general design; check their own docs fo
   - A stable connection; home is fine. Your node address is never published.
 - **What you get:**
   - Early access and a direct line to the developer.
-  - Testnet tokens from the faucet, to try uploads, downloads and hosting.
-  - No payment and no promised future tokens. Test data is deleted at every testnet reset.
+  - Testnet tokens from the faucet (no value), to try uploads, downloads and hosting.
+  - Bug bounties in AIArk, recorded on testnet and paid out linearly over 365 days starting six months after mainnet launch: 100 AIArk for each accepted suggestion; security findings by severity, Low 2,500-10,000, Medium 10,000-50,000, High 50,000-250,000, Critical up to 250,000 on testnet. Problems go through the app's "Report a problem" button (in the next build), which fills in version, hardware and your address and signs the report; vulnerabilities are reported privately.
+  - A share of the mainnet testnet-contributor allocation (1% of genesis), given as a locked staking reward that you earn by keeping a node on mainnet, released on the same schedule. The amount per person is not guaranteed; the final rules are published before mainnet, with sanctions and jurisdiction screening.
+  - No payment during the testnet. AIArk has no reference or target price and nothing here is an offer to sell. Test data is deleted at every testnet reset.
 - **How:**
   - The install bundle is being finished.
   - Register your interest by opening an issue titled `Testnet join` in the public repo, with your OS and the disk you can spare. No other personal data is needed.
@@ -274,7 +276,7 @@ The other columns reflect each network's general design; check their own docs fo
 - **Fair game:** over/abnormal withdrawals, fake-download reward farming, miners faking storage, sock-puppet farming, refund-gaming, oracle price manipulation, ramp-spread arbitrage, **filing false reports on fake *or real* files, spamming governance proposals/votes or raising genuinely contested votes** — deliberately triggering the **deterministic-detector ＋ human-jury / governance-vote flow** to see if it can be fooled or flooded. **The harder, the better.**
 - **The deterrents are part of the test:** false reports and spam proposals **forfeit their deposit ＋ cut reputation** by design — testnet proves whether that actually holds (if it doesn't, that's a bug — report it).
 - **Governance really can change the rules (explicit disclosure):** fees, revenue splits, thresholds and parameters are **decided by community vote** — **no one (including the team) can change them unilaterally**. **On testnet you're welcome to launch genuine *or* malicious proposals/votes** and try to break the governance defenses: vote weight = **stake × age multiplier** (linear in stake), **per-identity vote cap**, **team aggregate cap (20% → 10% → 5% at handover gates, excluded from core-clause votes)**, **immutable core clauses (supermajority + timelock)**, proposal deposits. **Can money / sock-puppets / vote-flooding buy governance? Show us.**
-- **Report via** the bug-bounty flow (Critical/High/…; paid in real value on testnet and mainnet, with a whitehat record).
+- **Report via** the bug-bounty flow (Critical/High/…; paid in AIArk: testnet reports are recorded and paid out linearly over 365 days starting six months after mainnet launch, mainnet reports from the security reserve, with a whitehat record).
 - **Why it helps you too:** WARNING-and-above events (especially ramps) are summarized into a **CSV** for AI/team analysis and parameter calibration. **The harder you hit it, the safer launch is.**
 - **Rules:** attack within testnet only; **no real PII, no real-world harm outside testnet** (that's illegal and out of scope).
 
