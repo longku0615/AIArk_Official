@@ -21,6 +21,34 @@ AIArk is a **community-run network drive ＋ media/knowledge marketplace**. You 
 
 The native token **AIArk** lives on AIArk's own chain, **AIArkChain**, and is used for payments, staking, mining rewards, and governance; wrapped copies can move to Ethereum for trading.
 
+### Where the idea comes from: from seeding credit to a usable token
+
+AIArk started from a simple question about file sharing: **why do people keep sharing a file after they already have it?**
+
+**BitTorrent (BT)** proved that strangers can move huge files to each other with no central server: everyone who downloads a piece also uploads it to others. But BT has no reward for staying. Once people finish a download they close the client, nobody keeps the file online, and sooner or later the file dies.
+
+**Private trackers (PT)** fixed that with credit. An invite-only site records how much each member uploads and downloads. Members who keep files online ("seeding") earn **upload credit** or bonus points, and they need that credit to keep downloading. Seeding becomes worth something, so files on good PT sites stay alive for years.
+
+PT credit still has limits:
+- **It is locked inside one site.** You cannot move it, sell it or use it anywhere else.
+- **You cannot buy it.** Someone with no spare disk or bandwidth has no fair way in.
+- **One administrator controls it.** The site can change the rules, wipe balances or shut down, and every point is lost with it.
+- **It relies on what each client reports.** A client that lies about its upload numbers can inflate its credit.
+- **Creators get nothing.** The credit rewards people who share a file, never the people who made it.
+
+**AIArk keeps the PT principle and turns the credit into a token you can actually use.** People who keep files stored and online, and who deliver downloads, earn **AIArk**, the network's native token. The token is:
+
+| PT upload credit | AIArk token |
+| :-- | :-- |
+| Earned by seeding on one site | Earned by storing and delivering files for the whole network |
+| Counted from client self-reports | Paid only against storage proofs the chain checks |
+| Spent only on that site's downloads | Spent on any paid download, storage, compute or `.aiark` names |
+| Cannot be bought or transferred | Transferable; anyone without spare disk can buy it to pay for downloads |
+| Rules and balances set by an admin | Rules public and on chain, changed only by community governance |
+| Creators earn nothing | Creators receive the largest share of every paid download |
+
+In short: **seeding earns credit, and in AIArk that credit is a token you can trade, buy and spend on downloads.** It is a utility token for using the network, not a promise of profit (see the honest note below and §6–§7).
+
 ### Why take part — what each role gets you (in everyday words)
 
 Think of AIArk as a **town library, a market and a court run by the townspeople themselves**. Nobody owns the building; everyone who helps keep it running gets something back. You start as a visitor and add roles when you want to.
